@@ -27,7 +27,7 @@ export const App = () => {
         dispatch(setIsLoggedIn({ isLoggedIn: true }))
       }
     }
-  }, [isLoading, data, dispatch])
+  }, [isLoading, data])
 
   return (
     <ThemeProvider theme={getTheme(themeMode)}>
