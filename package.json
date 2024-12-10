@@ -1,5 +1,6 @@
 {
-  "name": "1-lesson",
+  "name": "todo-planner-app",
+  "homepage": "https://genier-developer.github.io/todo-planner-app",
   "jest": {
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs"
