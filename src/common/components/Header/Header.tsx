@@ -1,4 +1,4 @@
-import MenuIcon from "@mui/icons-material/Menu"
+import AddTaskIcon from '@mui/icons-material/AddTask';
 import AppBar from "@mui/material/AppBar"
 import IconButton from "@mui/material/IconButton"
 import LinearProgress from "@mui/material/LinearProgress"
@@ -11,8 +11,7 @@ import { getTheme } from "common/theme"
 import { changeTheme, selectAppStatus, selectIsLoggedIn, selectThemeMode, setIsLoggedIn } from "../../../app/appSlice"
 import { baseApi } from "../../../app/baseApi"
 import { useLogoutMutation } from "../../../features/auth/api/authAPI"
-import { clearTasks } from "../../../features/todolists/model/tasksSlice"
-import { clearTodolists } from "../../../features/todolists/model/todolistsSlice"
+import { Typography } from "@mui/material"
 
 export const Header = () => {
   const dispatch = useAppDispatch()
@@ -45,9 +44,12 @@ export const Header = () => {
   return (
     <AppBar position="static" sx={{ mb: "30px" }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <IconButton color="inherit">
-          <MenuIcon />
-        </IconButton>
+        <div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
+          <IconButton color="inherit">
+            <AddTaskIcon fontSize={'large'}/>
+          </IconButton>
+          <Typography variant="h6" color="inherit" noWrap><b>{"Todo Planner"}</b></Typography>
+        </div>
         <div>
           {isLoggedIn && <MenuButton onClick={logoutHandler}>Logout</MenuButton>}
           <MenuButton background={theme.palette.primary.dark}>Faq</MenuButton>
