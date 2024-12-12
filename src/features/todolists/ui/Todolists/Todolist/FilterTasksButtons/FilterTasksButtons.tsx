@@ -36,14 +36,14 @@ export const FilterTasksButtons = ({ todolist }: Props) => {
       </Button>
       <Button
         variant={filter === "active" ? "outlined" : "text"}
-        color={"primary"}
+        color={"success"}
         onClick={() => changeFilterTasksHandler("active")}
       >
         Active
       </Button>
       <Button
         variant={filter === "completed" ? "outlined" : "text"}
-        color={"secondary"}
+        color={"warning"}
         onClick={() => changeFilterTasksHandler("completed")}
       >
         Completed
