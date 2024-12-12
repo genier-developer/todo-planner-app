@@ -2,16 +2,17 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 import AppBar from "@mui/material/AppBar"
 import IconButton from "@mui/material/IconButton"
 import LinearProgress from "@mui/material/LinearProgress"
-import Switch from "@mui/material/Switch"
 import Toolbar from "@mui/material/Toolbar"
-import { MenuButton } from "common/components"
 import { ResultCode } from "common/enums"
 import { useAppDispatch, useAppSelector } from "common/hooks"
-import { getTheme } from "common/theme"
 import { changeTheme, selectAppStatus, selectIsLoggedIn, selectThemeMode, setIsLoggedIn } from "../../../app/appSlice"
 import { baseApi } from "../../../app/baseApi"
 import { useLogoutMutation } from "../../../features/auth/api/authAPI"
-import { Typography } from "@mui/material"
+import Typography from '@mui/material/Typography';
+import Button from "@mui/material/Button"
+import lightIcon from '../../../assets/icons/day.png'
+import darkIcon from '../../../assets/icons/night.png'
+import Switch from "@mui/material/Switch"
 
 export const Header = () => {
   const dispatch = useAppDispatch()
@@ -21,8 +22,6 @@ export const Header = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
   const [logout] = useLogoutMutation()
-
-  const theme = getTheme(themeMode)
 
   const changeModeHandler = () => {
     dispatch(changeTheme({ themeMode: themeMode === "light" ? "dark" : "light" }))
@@ -51,9 +50,12 @@ export const Header = () => {
           <Typography variant="h6" color="inherit" noWrap><b>{"Todo Planner"}</b></Typography>
         </div>
         <div>
-          {isLoggedIn && <MenuButton onClick={logoutHandler}>Logout</MenuButton>}
-          <MenuButton background={theme.palette.primary.dark}>Faq</MenuButton>
-          <Switch color={"default"} onChange={changeModeHandler} />
+          <div style={{display: "flex", alignItems: 'center'}}>
+          {isLoggedIn && <Button onClick={logoutHandler} variant={'contained'} color={'success'}>Logout</Button>}
+            <img src={lightIcon} style={{ height: 20 }} alt={"day mode"} />
+            <Switch color={"default"} onChange={changeModeHandler} />
+            <img src={darkIcon} style={{ height: 20}} alt={"dark mode"} />
+          </div>
         </div>
       </Toolbar>
       {status === "loading" && <LinearProgress />}
