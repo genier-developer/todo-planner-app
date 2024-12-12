@@ -45,7 +45,16 @@ export const Task = ({ task, todolist }: Props) => {
           onChange={changeTaskStatusHandler}
           disabled={disabled}
         />
-        <EditableSpan value={task.title} onChange={changeTaskTitleHandler} disabled={disabled} />
+        <EditableSpan
+          value={task.title}
+          onChange={changeTaskTitleHandler}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              changeTaskTitleHandler(e.currentTarget.textContent || task.title)
+            }
+          }}
+          disabled={disabled}
+        />
       </div>
       <IconButton onClick={removeTaskHandler} disabled={disabled}>
         <DeleteIcon />

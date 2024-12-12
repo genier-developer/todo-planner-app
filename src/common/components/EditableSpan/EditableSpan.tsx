@@ -1,46 +1,46 @@
-import { ChangeEvent, useState } from "react"
-import TextField from "@mui/material/TextField"
+import { KeyboardEvent, useState } from "react"
 
-type Props = {
-  value: string
-  onChange: (newTitle: string) => void
-  disabled?: boolean
-}
 
-export const EditableSpan = ({ value, onChange, disabled = false }: Props) => {
-  const [editMode, setEditMode] = useState(false)
-  const [title, setTitle] = useState(value)
+type EditableSpanProps = {
+  value: string;
+  onChange: (value: string) => void;
+  disabled?: boolean;
+  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+};
 
-  const activateEditModeHandler = () => {
-    if (disabled) {
-      return
-    }
-    setEditMode(true)
-  }
+export const EditableSpan = ({ value, onChange, disabled, onKeyDown }: EditableSpanProps) => {
+  const [editMode, setEditMode] = useState(false);
+  const [currentValue, setCurrentValue] = useState(value);
 
-  const deactivateEditModeHandler = () => {
+  const activateEditMode = () => {
+    if (!disabled) setEditMode(true);
+  };
+
+  const deactivateEditMode = () => {
     setEditMode(false)
-    onChange(title)
-  }
+    onChange(currentValue)
+  };
 
-  const changeTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.currentTarget.value)
-  }
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      deactivateEditMode()
+    }
+    if (onKeyDown) {
+      onKeyDown(e)
+    }
+  };
 
-  return (
-    <>
-      {editMode ? (
-        <TextField
-          variant={"outlined"}
-          value={title}
-          size={"small"}
-          onChange={changeTitleHandler}
-          onBlur={deactivateEditModeHandler}
-          autoFocus
-        />
-      ) : (
-        <span onDoubleClick={activateEditModeHandler}>{value}</span>
-      )}
-    </>
+  return editMode ? (
+    <input
+      type="text"
+      value={currentValue}
+      onChange={(e) => setCurrentValue(e.target.value)}
+      onBlur={deactivateEditMode}
+      onKeyDown={handleKeyDown}
+      autoFocus
+      disabled={disabled}
+    />
+  ) : (
+    <span onDoubleClick={activateEditMode}>{value}</span>
   )
 }
