@@ -43,18 +43,28 @@ export const Header = () => {
   return (
     <AppBar position="static" sx={{ mb: "30px" }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: 'center' }}>
           <IconButton color="inherit">
-            <AddTaskIcon fontSize={'large'}/>
+            <AddTaskIcon fontSize={'large'} />
           </IconButton>
-          <Typography variant="h6" color="inherit" noWrap><b>{"Todo Planner"}</b></Typography>
+          <Typography variant="h6" color="inherit" noWrap>
+            <b>{"Todo Planner"}</b>
+          </Typography>
         </div>
-        <div>
-          <div style={{display: "flex", alignItems: 'center'}}>
-          {isLoggedIn && <Button onClick={logoutHandler} variant={'contained'} color={'success'}>Logout</Button>}
+        <div style={{ display: "flex", justifyContent: "center", alignItems: 'center', gap: '50px' }}>
+          {isLoggedIn && (
+            <Button
+              onClick={logoutHandler}
+              variant={'contained'}
+              color={'warning'}
+            >
+              Logout
+            </Button>
+          )}
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <img src={lightIcon} style={{ height: 20 }} alt={"day mode"} />
             <Switch color={"default"} onChange={changeModeHandler} />
-            <img src={darkIcon} style={{ height: 20}} alt={"dark mode"} />
+            <img src={darkIcon} style={{ height: 20 }} alt={"dark mode"} />
           </div>
         </div>
       </Toolbar>
